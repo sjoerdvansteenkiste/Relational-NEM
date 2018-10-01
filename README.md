@@ -13,7 +13,7 @@
 ![r-nem](animations/curtain_rnem3.gif)&nbsp;
 ![r-nem](animations/curtain_rnem4.gif)
 
-This is the code repository complementing the paper ["Relational Neural Expectation Maximization: Unsupervised Discovery of Objects and their Interactions"](https://openreview.net/pdf?id=SJ4z0Gb0W). All experiments from the paper
+This is the code repository complementing the paper ["Relational Neural Expectation Maximization: Unsupervised Discovery of Objects and their Interactions"](https://openreview.net/pdf?id=ryH20GbRW). All experiments from the paper
 can be reproduced from this repository. Data and pre-trained models are available [here](https://www.dropbox.com/sh/8fjscaromuu094o/AAB4Ye7yD3lmUd-iInbEfcHga?dl=0).
 
 ## Dependencies and Setup
