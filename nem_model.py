@@ -34,18 +34,18 @@ class NEMCell(RNNCell):
         self.cell = cell
         if not isinstance(input_shape, tf.TensorShape):
             input_shape = tf.TensorShape(input_shape)
-        self.input_shape = input_shape
+        self.input_size = input_shape
         self.gamma_shape = tf.TensorShape(input_shape.as_list()[:-1] + [1])
         self.distribution = distribution
         self.pred_init = pred_init
 
     @property
     def state_size(self):
-        return self.cell.state_size, self.input_shape, self.gamma_shape
+        return self.cell.state_size, self.input_size, self.gamma_shape
 
     @property
     def output_size(self):
-        return self.cell.output_size, self.input_shape, self.gamma_shape
+        return self.cell.output_size, self.input_size, self.gamma_shape
 
     def init_state(self, batch_size, K, dtype, gamma_init='gaussian'):
         # inner RNN hidden state init
@@ -54,7 +54,7 @@ class NEMCell(RNNCell):
 
         # initial prediction (B, K, W, H, C)
         with tf.name_scope('pred_init'):
-            pred_shape = tf.stack([batch_size, K] + self.input_shape.as_list())
+            pred_shape = tf.stack([batch_size, K] + self.input_size.as_list())
             pred = tf.ones(shape=pred_shape, dtype=dtype) * self.pred_init
 
         # initial gamma (B, K, W, H, 1)
@@ -106,7 +106,7 @@ class NEMCell(RNNCell):
             # print(masked_deltas.get_shape())
             batch_size = shape[0]
             K = shape[1]
-            M = np.prod(self.input_shape.as_list())
+            M = np.prod(self.input_size.as_list())
             reshaped_masked_deltas = tf.reshape(masked_deltas, tf.stack([batch_size * K, M]))
 
         preds, h_new = self.cell(reshaped_masked_deltas, h_old)
